@@ -33,3 +33,15 @@ The Project
 This is the repository where we will exchange all information.
 The name was primarily chosen because it was available, and hey it 
 is a beautiful flower too.
+
+
+Build Stuff
+-----------
+
+$ cmake -S. -Bbuild
+$ cmake --build build --config Release --target heliconia --verbose
+
+Libraries
+---------
+json, https://github.com/nlohmann/json
+for cmake, https://json.nlohmann.me/integration/cmake/#external
