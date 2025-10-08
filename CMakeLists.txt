@@ -9,9 +9,13 @@ project(
 set(JSON_BuildTests OFF CACHE INTERNAL "")
 add_subdirectory(libs/json)
 
-
-add_executable(heliconia src/helloworld.cpp)
+add_executable(heliconia 
+	src/helloworld.cpp
+	src/scan.cpp
+	src/list_files.cpp)
 
 target_include_directories(heliconia PRIVATE src)
 
 target_link_libraries(heliconia PRIVATE nlohmann_json::nlohmann_json)
+
+target_compile_features(heliconia PRIVATE cxx_std_23)
