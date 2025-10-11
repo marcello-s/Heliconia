@@ -1,0 +1,22 @@
+name: CI Build for PR
+run-name: Building code for ${{ github.actor }} 🚀
+on:
+  push:
+    branches: [$default-branch]
+  pull_request:
+    branches: [$default-branch]
+
+jobs:
+  CI-Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code with submodules
+        uses: actions/checkout@v5
+        with: 
+          submodules: recursive
+
+      - name: build release version
+        if: github.event.name == 'pull_request'
+        run: |
+          cmake -S. -Bbuild
+          cmake --build build --config Release --target heliconia --verbose
