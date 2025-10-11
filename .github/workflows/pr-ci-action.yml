@@ -20,9 +20,16 @@ jobs:
         uses: actions/checkout@v5
         with: 
           submodules: recursive
+    
+      - name: Install GCC 14
+        run: |
+          sudo apt update
+          sudo apt install -y g++-14
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100
+          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 100
 
       - name: build release version
         # if: github.event.name == 'pull_request'
         run: |
-          cmake -S. -Bbuild
+          cmake -S. -Bbuild -DCMAKE_CXX_STANDARD=23
           cmake --build build --config Release --target heliconia --verbose
