@@ -10,6 +10,11 @@ jobs:
   CI-Build:
     runs-on: ubuntu-latest
     steps:
+      - name: some information
+        run: |
+          echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+          echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+
       - name: checkout code with submodules
         uses: actions/checkout@v5
         with: 
