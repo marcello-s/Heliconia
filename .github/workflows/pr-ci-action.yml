@@ -22,7 +22,7 @@ jobs:
           submodules: recursive
 
       - name: build release version
-        if: github.event.name == 'pull_request'
+        # if: github.event.name == 'pull_request'
         run: |
           cmake -S. -Bbuild
           cmake --build build --config Release --target heliconia --verbose
