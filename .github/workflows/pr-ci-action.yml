@@ -1,7 +1,6 @@
 name: CI Build for PR
 run-name: Building code for ${{ github.actor }} 🚀
 on:
-  push:
   pull_request:
   workflow_dispatch:
 
