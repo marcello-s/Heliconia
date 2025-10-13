@@ -1,10 +1,7 @@
 name: CI Build for PR
 run-name: Building code for ${{ github.actor }} 🚀
 on:
-  push:
-    branches: [$default-branch]
   pull_request:
-    branches: [$default-branch]
   workflow_dispatch:
 
 jobs:
@@ -16,13 +13,20 @@ jobs:
           echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
           echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
 
-      - name: checkout code with submodules
+      - name: Checkout code with submodules
         uses: actions/checkout@v5
         with: 
           submodules: recursive
-
-      - name: build release version
-        if: github.event.name == 'pull_request'
+    
+      - name: Install GCC 14
         run: |
-          cmake -S. -Bbuild
+          sudo apt update
+          sudo apt install -y g++-14
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100
+          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 100
+
+      - name: Build release version
+        # if: github.event.name == 'pull_request'
+        run: |
+          cmake -S. -Bbuild -DCMAKE_CXX_STANDARD=23
           cmake --build build --config Release --target heliconia --verbose
