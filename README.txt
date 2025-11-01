@@ -38,8 +38,9 @@ is a beautiful flower too.
 Build Stuff
 -----------
 
-$ cmake -S. -Bbuild
+$ cmake -S . -B build
 $ cmake --build build --config Release --target heliconia --verbose
+$ cmake --build build --config Release --target tests --verbose
 
 Libraries
 ---------

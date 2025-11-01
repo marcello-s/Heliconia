@@ -28,5 +28,6 @@ jobs:
       - name: Build release version
         # if: github.event.name == 'pull_request'
         run: |
-          cmake -S. -Bbuild -DCMAKE_CXX_STANDARD=23
+          cmake -S . -B build -DCMAKE_CXX_STANDARD=23
           cmake --build build --config Release --target heliconia --verbose
+          cmake --build build --config Release --target tests --verbose
