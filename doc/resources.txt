@@ -1,7 +1,0 @@
-Links
------
-
-http://note19.com/2008/12/20/how-to-control-gm862-from-arduino/
-http://arduino.cc/en/Main/ArduinoBoardDiecimila
-http://tinkerlog.com/
-http://tinkerlog.com/2009/05/15/interfacing-arduino-with-a-telit-gm862/
