@@ -21,8 +21,11 @@ std::generator<fs::path> enumerate_files(const fs::path &root)
             ec.clear();
             continue;
         }
+
         if (it->is_regular_file())
+        {
             co_yield it->path(); // hand path to caller
+        }
     }
 }
 
@@ -34,6 +37,9 @@ std::vector<fs::path> list_directory(const fs::path &root)
     std::vector<fs::path> result;
     result.reserve(4'096); // small speed-up
     for (fs::path p : enumerate_files(root))
+    {
         result.push_back(std::move(p));
+    }
+
     return result;
 }
