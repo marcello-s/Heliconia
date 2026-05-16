@@ -2,6 +2,8 @@
 #include <memory>
 #include <fstream>
 
+namespace heliconia::ptr_examples {
+
 // custom deleter as lambda
 auto fileDeleter = [](std::FILE* f) {
     if (f) {
@@ -10,3 +12,5 @@ auto fileDeleter = [](std::FILE* f) {
         std::cout << "File closed\n";
     }
 };
+
+} // namespace heliconia::ptr_examples

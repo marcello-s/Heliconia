@@ -1,6 +1,8 @@
 #include <iostream>
 #include <memory>
 
+namespace heliconia::ptr_examples {
+
 class Controller : public std::enable_shared_from_this<Controller> {
 public:
     void registerSelf() {
@@ -12,3 +14,5 @@ public:
         return std::shared_ptr<Controller>(new Controller());
     }
 };
+
+} // namespace heliconia::ptr_examples

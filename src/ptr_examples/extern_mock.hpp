@@ -2,6 +2,8 @@
 #include <memory>
 #include <cstdlib>
 
+namespace heliconia::ptr_examples {
+
 // extern C API, mock for testing
 extern "C" {
     // Simulates a C function that allocates and returns via out-parameter
@@ -14,3 +16,5 @@ extern "C" {
         std::free(handle);
     }
 }
+
+} // namespace heliconia::ptr_examples

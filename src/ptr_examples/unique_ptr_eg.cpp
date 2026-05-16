@@ -3,6 +3,8 @@
 #include <memory>
 #include <string>
 
+namespace heliconia::ptr_examples {
+
 Resource::Resource(const std::string& name) : name_(name) {
     std::cout << "Resource " << name_ << " acquired.\n";
 }
@@ -24,3 +26,5 @@ void takeOwnership(std::unique_ptr<Resource> res) {
     std::cout << "Taking ownership of resource.\n";
     res->use();
 }
+
+} // namespace heliconia::ptr_examples

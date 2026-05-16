@@ -1,6 +1,8 @@
 #include <iostream>
 #include <memory>
 
+namespace heliconia::ptr_examples {
+
 struct Widget {
     std::weak_ptr<Widget> partner;
     int id = 0;
@@ -17,3 +19,5 @@ struct Widget {
         }
     }
 };
+
+} // namespace heliconia::ptr_examples
