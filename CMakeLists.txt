@@ -13,7 +13,7 @@ add_executable(heliconia
 	src/helloworld.cpp
 	src/scan.cpp
 	src/list_files.cpp
-	src/unique_ptr_eg.cpp)
+	src/ptr_examples/unique_ptr_eg.cpp)
 
 target_include_directories(heliconia PRIVATE src)
 

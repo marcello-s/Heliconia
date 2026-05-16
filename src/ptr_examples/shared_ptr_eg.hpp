@@ -2,6 +2,8 @@
 #include <memory>
 #include <vector>
 
+namespace heliconia::ptr_examples {
+
 struct Node {
     std::string value;
     std::shared_ptr<Node> next;
@@ -13,3 +15,5 @@ struct Node {
         std::cout << "Node destroyed: " << value << std::endl;
     }
 };
+
+} // namespace heliconia::ptr_examples

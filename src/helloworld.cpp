@@ -6,18 +6,21 @@
 #include <nlohmann/json.hpp>
 #include "scan.hpp"
 #include "list_files.hpp"
-#include "unique_ptr_eg.hpp"
-#include "shared_ptr_eg.hpp"
-#include "weak_ptr.hpp"
-#include "enable_shared_ptr_eg.hpp"
-#include "extern_mock.hpp"
-#include "custom_deleter.hpp"
+#include "ptr_examples/unique_ptr_eg.hpp"
+#include "ptr_examples/shared_ptr_eg.hpp"
+#include "ptr_examples/weak_ptr.hpp"
+#include "ptr_examples/enable_shared_ptr_eg.hpp"
+#include "ptr_examples/extern_mock.hpp"
+#include "ptr_examples/custom_deleter.hpp"
 
 namespace fs = std::filesystem;
 using namespace std;
 using json = nlohmann::json;
+using Resource = heliconia::ptr_examples::Resource; 
+using Node = heliconia::ptr_examples::Node;
+using Widget = heliconia::ptr_examples::Widget;
 
-using FilePtr = std::unique_ptr<std::FILE, decltype(fileDeleter)>;
+using FilePtr = std::unique_ptr<std::FILE, decltype(heliconia::ptr_examples::fileDeleter)>;
 
 int main(int argc, char *argv[])
 {
@@ -71,9 +74,9 @@ int main(int argc, char *argv[])
 
     // unique_ptr example
     {
-        auto res1 = createResource("Resource1");
+        auto res1 = heliconia::ptr_examples::createResource("Resource1");
         Resource* res2 = res1.get(); // get raw pointer to the resource
-        takeOwnership(std::move(res1)); // transfer ownership to the function
+        heliconia::ptr_examples::takeOwnership(std::move(res1)); // transfer ownership to the function
         // res1 is now empty and cannot be used
         if (!res1)
         {
@@ -115,28 +118,28 @@ int main(int argc, char *argv[])
     } // both widgets go out of scope here and are destroyed, demonstrating that the weak_ptr does not create a strong reference cycle
 
     {
-        auto controller = Controller::create();
+        auto controller = heliconia::ptr_examples::Controller::create();
         controller->registerSelf();
     } // controller goes out of scope here and is destroyed, demonstrating that enable_shared_from_this works correctly
 
     {
         // C++23: std:out_ptr adapts unique_ptr
-        std::unique_ptr<int, decltype(&c_api_destroy)> handle(nullptr, c_api_destroy);
+        std::unique_ptr<int, decltype(&heliconia::ptr_examples::c_api_destroy)> handle(nullptr, heliconia::ptr_examples::c_api_destroy);
 
-        c_api_create(std::out_ptr(handle));
+        heliconia::ptr_examples::c_api_create(std::out_ptr(handle));
         std::cout << "Value: " << *handle << "\n";
         // handle freed automatically via custom deleter
 
         // std::inout_ptr for re-initialization scenarios
         std::unique_ptr<int, decltype(&free)> ptr2(nullptr, &free);
         // If ptr2 already held a value, inout_ptr would reset it first
-        c_api_create(std::inout_ptr(ptr2));
+        heliconia::ptr_examples::c_api_create(std::inout_ptr(ptr2));
         std::cout << "Value 2: " << *ptr2 << "\n";
     }
 
     {
         // Using custom deleter with unique_ptr for file management
-        FilePtr file(std::fopen("example.txt", "w"), fileDeleter);
+        FilePtr file(std::fopen("example.txt", "w"), heliconia::ptr_examples::fileDeleter);
         if (file) {
             std::fprintf(file.get(), "Hello, World!\n");
         }
